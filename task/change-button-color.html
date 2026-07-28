@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <style>
+            button{
+                background-color:red;
+            }
+        </style> -->
+    </head>
+    <body>
+        <h1>Click To Change The Color</h1><br>
+        <h1><button onclick="change()" id="color">Change Color</button></h1>
+        <h1>Button Printing Statement</h1>    
+        <button id="one" onclick="re(event)">Hello</button>
+        <button id="two" onclick="re(event)">Everyone</button>
+        <button id="three" onclick="re(event)">How Are You</button>
+        <h2 id="w">Name</h2>
+        <script>
+            //var color=document.getElementById("color");
+            var v=document.getElementById("w")
+            function re(event)
+            {
+                v.textContent=event.target.textContent
+            }
+                function change()
+                {
+                    document.getElementById("color").style.backgroundColor="red";
+                }
+        </script>
+        <!-- DELECTE  -->
+         <h1>Delecte The Element</h1>
+        <h1 id="one" onclick="he(event)">one</h1>
+        <h1 id="one" onclick="he(event)">two</h1>
+        <h1 id="one" onclick="he(event)">three</h1>
+        <h1 id="one" onclick="he(event)">four</h1>
+        <h1 id="one" onclick="he(event)">five</h1>
+        <script>
+            //var a=document.getElementById("one")
+            function he(event)
+            {
+                event.target.remove();
+            }
+        </script>
+    </body>
+</html>

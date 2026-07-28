@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reading Room — A Reading Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="drawer-rail">
+  <span class="drawer-tab active">Fiction</span>
+  <span class="drawer-tab">Nonfiction</span>
+  <span class="drawer-tab">Poetry</span>
+  <span class="drawer-tab">Philosophy</span>
+  <span class="drawer-tab">Sci-Fi</span>
+  <span class="drawer-tab">Memoir</span>
+</div>
+
+<header class="hero">
+  <div class="hero-card">
+    <div class="stamp">Ex&nbsp;Libris<br>Reading&nbsp;Room</div>
+    <div class="hero-top">
+      <span class="eyebrow-title">Personal Catalog · Vol. II</span>
+      <span class="catalog-no">Card Index<br>Est. 2021</span>
+    </div>
+    <h1>The Reading<br><em>Room</em></h1>
+    <p class="hero-sub">A running catalog of what I've read, what I'm reading, and what's waiting on the shelf — with a note on each, honestly kept.</p>
+    <div class="stat-line">
+      <div class="stat"><span class="stat-num" id="statTotal">0</span><span class="stat-label">Books logged</span></div>
+      <div class="stat"><span class="stat-num" id="statReading">0</span><span class="stat-label">Currently reading</span></div>
+      <div class="stat"><span class="stat-num" id="statPages">0</span><span class="stat-label">Pages read</span></div>
+      <div class="stat"><span class="stat-num" id="statRating">–</span><span class="stat-label">Average rating</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div id="storageBanner" style="display:none; font-family:'Courier Prime',monospace; font-size:12.5px; padding:12px 18px; border:1px solid var(--rule); border-radius:4px; margin-top:34px; line-height:1.5;"></div>
+
+  <div class="controls">
+    <span class="controls-label">Browse by shelf:</span>
+    <div class="genre-filters" id="filters">
+      <button class="filter-btn active" data-genre="all">All</button>
+      <button class="filter-btn" data-genre="fiction">Fiction</button>
+      <button class="filter-btn" data-genre="nonfiction">Nonfiction</button>
+      <button class="filter-btn" data-genre="poetry">Poetry</button>
+      <button class="filter-btn" data-genre="philosophy">Philosophy</button>
+      <button class="filter-btn" data-genre="scifi">Sci-Fi</button>
+      <button class="filter-btn" data-genre="memoir">Memoir</button>
+    </div>
+    <input class="search-box" id="searchBox" type="text" placeholder="Search title or author…">
+    <button class="add-btn" id="addBtn">+ New card</button>
+    <span class="save-flag" id="saveFlag">✓ Saved</span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div id="shelfEmpty" class="shelf-empty hidden">
+    <h3>Your shelf is empty</h3>
+    <p>Start your catalog — add the first book you're reading, finished, or want to get to.</p>
+    <button class="add-btn" id="addBtnEmpty">+ Add your first book</button>
+  </div>
+
+  <p id="noResults" class="hidden" style="text-align:center; font-family:'Courier Prime',monospace; color: var(--ink-soft); padding: 60px 0; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase;">No cards match that search — try another title or shelf.</p>
+
+  <div class="footer">
+    <span>The Reading Room · a personal catalog</span>
+    <span>Cards updated by hand, most weekends</span>
+  </div>
+
+</div>
+
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">New Catalog Card</h2>
+    <form id="bookForm">
+      <input type="hidden" id="bookId">
+      <div class="form-row">
+        <label for="fTitle">Title</label>
+        <input type="text" id="fTitle" placeholder="e.g. Middlemarch">
+      </div>
+      <div class="form-row">
+        <label for="fAuthor">Author</label>
+        <input type="text" id="fAuthor" placeholder="e.g. George Eliot">
+      </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="fGenre">Shelf / Genre</label>
+          <select id="fGenre">
+            <option value="fiction">Fiction</option>
+            <option value="nonfiction">Nonfiction</option>
+            <option value="poetry">Poetry</option>
+            <option value="philosophy">Philosophy</option>
+            <option value="scifi">Sci-Fi</option>
+            <option value="memoir">Memoir</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="fStatus">Status</label>
+          <select id="fStatus">
+            <option value="want">Want to read</option>
+            <option value="reading">Currently reading</option>
+            <option value="read">Finished</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="fPages">Pages</label>
+          <input type="number" id="fPages" min="0" placeholder="e.g. 320">
+        </div>
+        <div class="form-row">
+          <label for="fDate">Date note (e.g. Mar '26, or pg. 90)</label>
+          <input type="text" id="fDate" placeholder="e.g. Finished Mar '26">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Rating</label>
+        <div class="star-picker" id="starPicker">
+          <button type="button" data-val="1"></button>
+          <button type="button" data-val="2"></button>
+          <button type="button" data-val="3"></button>
+          <button type="button" data-val="4"></button>
+          <button type="button" data-val="5"></button>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="fNote">Your notes</label>
+        <textarea id="fNote" placeholder="What did you think? Any quotes, feelings, or details worth remembering…"></textarea>
+      </div>
+      <div class="form-row">
+        <label for="fFile">Book file on your laptop (optional)</label>
+        <input type="file" id="fFile" accept=".pdf,.epub,.txt,.mobi,.azw3,.doc,.docx">
+        <div id="fFileName" style="font-family:'Courier Prime',monospace; font-size:11px; color:var(--ink-soft); margin-top:6px;"></div>
+        <div id="fExtractStatus" style="font-family:'Courier Prime',monospace; font-size:11px; color:var(--pine); margin-top:4px;"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn-primary" id="saveBtn">Save card</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="viewOverlay">
+  <div class="modal" style="max-width: 620px;">
+    <div id="viewTab" style="display:inline-block; font-family:'Courier Prime',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--card); padding:6px 14px; border-radius:0 0 4px 0; font-weight:700; margin:6px 0 18px -32px;"></div>
+    <div id="viewCallNo" style="font-family:'Courier Prime',monospace; font-size:11px; color:var(--ink-soft); margin-bottom:8px;"></div>
+    <h2 id="viewTitle" style="font-family:'Fraunces',serif; font-size:30px; margin:0 0 4px;"></h2>
+    <p id="viewAuthor" style="font-style:italic; color:var(--ink-soft); margin:0 0 14px;"></p>
+    <div class="rating" id="viewRating" style="margin-bottom:18px;"></div>
+    <p id="viewNote" style="font-size:15.5px; line-height:1.7; white-space:pre-wrap; margin:0 0 20px;"></p>
+    <div id="viewFileRow" style="margin-bottom: 20px;"></div>
+    <div class="modal-actions">
+      <span id="viewFooterMeta" style="font-family:'Courier Prime',monospace; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em;"></span>
+      <div style="display:flex; gap:10px;">
+        <button type="button" class="btn-ghost" id="viewCloseBtn">Close</button>
+        <button type="button" class="btn-primary" id="viewEditBtn">Edit card</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

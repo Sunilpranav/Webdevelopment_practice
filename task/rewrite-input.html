@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <input onkeyup="writes()" id="input">
+        <!-- <h2><button onclick="writes()">Click</button></h2> -->
+        <h4 id="rewrite"></h4>
+        <script>
+            var v=document.getElementById("input")
+            var r=document.getElementById("rewrite")
+            function writes()
+            {
+                r.textContent=v.value
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<input type="number" id="one"><br>
+<input type="number" id="two"><br>
+<button onclick="add()">output</button><br>
+<h3>result: <span id="result"></span></h3><br>
+
+<script>
+function add() {
+    // 1. Get the values directly inside the function when the button is clicked
+    var a = document.getElementById("one").value;
+    var b = document.getElementById("two").value;
+    
+    // 2. Convert the string values to numbers and add them
+    var total = Number(a) + Number(b);
+    
+    // 3. Display the result on the web page
+    document.getElementById("result").textContent = total;
+    console.log(total);
+}
+</script>

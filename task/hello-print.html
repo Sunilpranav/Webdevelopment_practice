@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <button onclick="add()">Add Hello</button>
+        <div id="one"></div>
+        <script>
+            var div=document.getElementById("one")
+            function add()
+            {
+                var list=document.createElement("h1")
+                list.textContent="Hello"
+                div.append(list)
+            }
+        </script>
+    </body>
+</html>

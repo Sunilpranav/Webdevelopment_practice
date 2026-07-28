@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>Calculater</h1>
+        <h2>Number1: <input id="one"></h2>
+        <h2>Number2: <input id="two"></h2>
+        <h2>Option<br>
+           <ol type="a">
+            <li>add</li>
+            <li>sub</li>
+            <li>mul</li>
+            <li>div</li>
+           </ol>
+        </h2>
+        <h2>Option: <input id="op"></h2>
+        <button onclick="op()">Click</button>
+        <h2>Output:<span id="result"></span></h2>
+        <script>
+            function op(){
+            if(document.getElementById("op").value=="a")
+            {
+                console.log("hello  ")
+                add()
+            }
+            else if(document.getElementById("op").value=="b")
+            {
+                sub()
+            }
+            else if(document.getElementById("op").value=="c")
+            {
+                mul()
+            }
+            else if(document.getElementById("op").value=="d")
+            {
+                div()
+            }
+            }
+            function add()
+            {
+                var a=document.getElementById("one").value
+                var b=document.getElementById("two").value
+                var total=Number(a)+Number(b)
+                document.getElementById("result").textContent=total
+                console.log(total)
+            }
+            function sub()
+            {
+                var a=document.getElementById("one").value
+                var b=document.getElementById("two").value
+                var total=Math.abs(Number(a)-Number(b))
+                document.getElementById("result").textContent=total
+                console.log(total)
+            }
+            function mul()
+            {
+                var a=document.getElementById("one").value
+                var b=document.getElementById("two").value
+                var total=Number(a)*Number(b)
+                document.getElementById("result").textContent=total
+                console.log(total)
+            }
+            function div()
+            {
+                var a=document.getElementById("one").value
+                var b=document.getElementById("two").value
+                var total=Number(a)/Number(b)
+                document.getElementById("result").textContent=total
+                console.log(total)
+            }
+        </script>
+    </body>
+</html>

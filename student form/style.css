@@ -1,0 +1,109 @@
+/* Base Page Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 40px;
+    margin: 0;
+    /* ADD THESE THREE LINES TO CENTER EVERYTHING */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Form Table Styling */
+table {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden; /* Keeps the rounded corners clean */
+}
+
+td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+/* Form Inputs Styling */
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+    width: 100%;
+    padding: 8px 12px;
+    box-sizing: border-box; /* Prevents input from breaking layout box bounds */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Custom adjustments for Radio Groupings */
+input[type="radio"] {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+label {
+    margin-right: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Button UI Styling */
+button {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+/* Data Output Table Styling (Assumes id="tablebody" container row targets) */
+#tablebody parent, 
+table:nth-of-type(2) {
+    max-width: 800px;
+}
+
+table:nth-of-type(2) th {
+    background-color: #34495e;
+    color: white;
+    text-align: left;
+    padding: 12px 15px;
+}
+
+table:nth-of-type(2) tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Specific Style rules for the Table Row Delete Button Actions */
+td button {
+    background-color: #e74c3c;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+td button:hover {
+    background-color: #c0392b;
+}
